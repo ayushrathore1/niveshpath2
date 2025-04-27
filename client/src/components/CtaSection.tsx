@@ -4,28 +4,37 @@ import { Button } from "@/components/ui/button";
 
 const CtaSection = () => {
   return (
-    <section className="py-16 bg-white">
+    <section className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <Card className="max-w-3xl mx-auto bg-gray-50 shadow">
-          <CardContent className="p-8 text-center">
-            <h2 className="text-2xl font-bold mb-4">Ready to Start Your Journey?</h2>
-            <p className="mb-6">
-              Join thousands of investors who trust NiveshPath for their financial planning.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
-              <Link href="/signup">
-                <Button className="bg-primary hover:bg-primary/90">
-                  Create Free Account
-                </Button>
-              </Link>
-              <Link href="/login">
-                <Button variant="outline" className="text-primary border-primary hover:bg-gray-50">
-                  Sign In
-                </Button>
-              </Link>
+        <div className="max-w-4xl mx-auto relative">
+          {/* Background decoration */}
+          <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 via-indigo-500/10 to-purple-500/10 rounded-3xl blur-lg"></div>
+          
+          {/* Card with premium gradient border */}
+          <div className="relative p-0.5 rounded-2xl bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 shadow-xl">
+            <div className="bg-white rounded-2xl p-10 text-center">
+              <h2 className="text-3xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">
+                Ready to Start Your Journey?
+              </h2>
+              <p className="mb-8 text-gray-600 text-lg max-w-2xl mx-auto">
+                Join thousands of investors who trust NiveshPath for their financial planning and achieve your financial goals faster.
+              </p>
+              <div className="flex flex-col sm:flex-row justify-center gap-5">
+                <Link href="/signup">
+                  <a className="gradient-primary px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 font-medium">
+                    Create Free Account
+                  </a>
+                </Link>
+                <Link href="/login">
+                  <a className="px-8 py-3 rounded-lg border-2 border-transparent bg-white shadow-md hover:shadow-lg relative font-medium text-indigo-600 transition-all">
+                    <span className="relative z-10">Sign In</span>
+                    <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 opacity-10 hover:opacity-20 transition-opacity"></span>
+                  </a>
+                </Link>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </section>
   );
