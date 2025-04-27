@@ -1,6 +1,5 @@
 import { Link } from "wouter";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 
 const CtaSection = () => {
   return (
@@ -21,15 +20,15 @@ const CtaSection = () => {
               </p>
               <div className="flex flex-col sm:flex-row justify-center gap-5">
                 <Link href="/signup">
-                  <a className="gradient-primary px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 font-medium">
+                  <div className="gradient-primary px-8 py-3 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 font-medium cursor-pointer">
                     Create Free Account
-                  </a>
+                  </div>
                 </Link>
                 <Link href="/login">
-                  <a className="px-8 py-3 rounded-lg border-2 border-transparent bg-white shadow-md hover:shadow-lg relative font-medium text-indigo-600 transition-all">
+                  <div className="px-8 py-3 rounded-lg border-2 border-transparent bg-white shadow-md hover:shadow-lg relative font-medium text-indigo-600 transition-all cursor-pointer">
                     <span className="relative z-10">Sign In</span>
                     <span className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 opacity-10 hover:opacity-20 transition-opacity"></span>
-                  </a>
+                  </div>
                 </Link>
               </div>
             </div>

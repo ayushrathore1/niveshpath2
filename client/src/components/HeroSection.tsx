@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
 
 const HeroSection = () => {
   return (
@@ -20,14 +19,14 @@ const HeroSection = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-6 pb-16">
             <Link href="/signup">
-              <a className="bg-white text-indigo-800 hover:bg-blue-100 px-8 py-3 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all">
+              <div className="bg-white text-indigo-800 hover:bg-blue-100 px-8 py-3 rounded-lg font-semibold text-lg shadow-lg hover:shadow-xl transition-all cursor-pointer">
                 Get Started
-              </a>
+              </div>
             </Link>
             <Link href="/learn">
-              <a className="bg-transparent text-white border-2 border-white hover:bg-indigo-800/20 px-8 py-3 rounded-lg font-semibold text-lg transition-colors">
+              <div className="bg-transparent text-white border-2 border-white hover:bg-indigo-800/20 px-8 py-3 rounded-lg font-semibold text-lg transition-colors cursor-pointer">
                 Learn More
-              </a>
+              </div>
             </Link>
           </div>
         </div>

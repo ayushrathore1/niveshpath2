@@ -47,9 +47,9 @@ const Home = () => {
             </div>
             
             <Link href="/features">
-              <a className="gradient-primary inline-block px-8 py-3 rounded-lg text-white font-medium shadow-lg hover:shadow-xl transition-all">
+              <div className="gradient-primary inline-block px-8 py-3 rounded-lg text-white font-medium shadow-lg hover:shadow-xl transition-all cursor-pointer">
                 Explore Our Features
-              </a>
+              </div>
             </Link>
           </div>
         </div>
@@ -88,9 +88,9 @@ const Home = () => {
                   </li>
                 </ul>
                 <Link href="/ai">
-                  <a className="gradient-secondary inline-block px-6 py-2 rounded-lg text-white font-medium shadow-md hover:shadow-lg transition-all">
+                  <div className="gradient-secondary inline-block px-6 py-2 rounded-lg text-white font-medium shadow-md hover:shadow-lg transition-all cursor-pointer">
                     Try AI Analysis
-                  </a>
+                  </div>
                 </Link>
               </div>
               <div className="md:w-1/2 bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 p-8 md:p-12 text-white flex items-center">
