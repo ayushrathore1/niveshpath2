@@ -13,6 +13,7 @@ import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import MainLayout from "@/layouts/MainLayout";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import PrivateRoute from "@/components/PrivateRoute";
 
 function Router() {
@@ -40,12 +41,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <AuthProvider>
-          <MainLayout>
-            <Router />
-          </MainLayout>
-          <Toaster />
-        </AuthProvider>
+        <LanguageProvider>
+          <AuthProvider>
+            <MainLayout>
+              <Router />
+            </MainLayout>
+            <Toaster />
+          </AuthProvider>
+        </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );

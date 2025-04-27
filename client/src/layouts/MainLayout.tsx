@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import MobileNav from "./MobileNav";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { LanguageToggle } from "@/components/LanguageToggle";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -10,6 +12,7 @@ interface MainLayoutProps {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { currentUser, logout } = useAuth();
+  const { t } = useLanguage();
   const [, setLocation] = useLocation();
 
   const handleLogout = async () => {
@@ -34,43 +37,57 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
 
           <nav className="hidden md:flex space-x-8">
             <Link href="/">
-              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Home</span>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">
+                {t("Home", "होम")}
+              </span>
             </Link>
             <Link href="/about">
-              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">About</span>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">
+                {t("About", "हमारे बारे में")}
+              </span>
             </Link>
             <Link href="/learn">
-              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Learn</span>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">
+                {t("Learn", "सीखें")}
+              </span>
             </Link>
             <Link href="/features">
-              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Features</span>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">
+                {t("Features", "सुविधाएं")}
+              </span>
             </Link>
             <Link href="/ai">
-              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">AI Analysis</span>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">
+                {t("AI Analysis", "AI विश्लेषण")}
+              </span>
             </Link>
           </nav>
 
           <div className="flex items-center space-x-5">
+            <LanguageToggle />
+            
             {currentUser ? (
               <div className="flex items-center space-x-4">
                 <span className="text-gray-700 font-medium">
-                  Hi, {currentUser.email?.split('@')[0]}
+                  {t("Hi", "नमस्ते")}, {currentUser.email?.split('@')[0]}
                 </span>
                 <button 
                   onClick={handleLogout}
                   className="text-gray-700 hover:gradient-text font-medium cursor-pointer"
                 >
-                  Logout
+                  {t("Logout", "लॉगआउट")}
                 </button>
               </div>
             ) : (
               <>
                 <Link href="/login">
-                  <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Login</span>
+                  <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">
+                    {t("Login", "लॉगिन")}
+                  </span>
                 </Link>
                 <Link href="/signup">
                   <div className="gradient-primary px-5 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center font-medium cursor-pointer">
-                    <i className="fas fa-user-plus mr-2"></i> Sign Up
+                    <i className="fas fa-user-plus mr-2"></i> {t("Sign Up", "साइन अप")}
                   </div>
                 </Link>
               </>
@@ -104,33 +121,41 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Quick Links</h4>
+              <h4 className="font-semibold mb-4 text-white">{t("Quick Links", "त्वरित लिंक")}</h4>
               <ul className="space-y-3">
                 <li>
                   <Link href="/">
-                    <span className="text-gray-300 hover:text-white transition cursor-pointer">Home</span>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">
+                      {t("Home", "होम")}
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/about">
-                    <span className="text-gray-300 hover:text-white transition cursor-pointer">About</span>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">
+                      {t("About", "हमारे बारे में")}
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/learn">
-                    <span className="text-gray-300 hover:text-white transition cursor-pointer">Learn</span>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">
+                      {t("Learn", "सीखें")}
+                    </span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/features">
-                    <span className="text-gray-300 hover:text-white transition cursor-pointer">Features</span>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">
+                      {t("Features", "सुविधाएं")}
+                    </span>
                   </Link>
                 </li>
               </ul>
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Contact</h4>
+              <h4 className="font-semibold mb-4 text-white">{t("Contact", "संपर्क")}</h4>
               <ul className="space-y-3 text-gray-300">
                 <li className="flex items-center">
                   <i className="fas fa-envelope mr-2"></i>
@@ -144,7 +169,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             </div>
 
             <div>
-              <h4 className="font-semibold mb-4 text-white">Follow Us</h4>
+              <h4 className="font-semibold mb-4 text-white">{t("Follow Us", "हमें फॉलो करें")}</h4>
               <div className="flex space-x-4">
                 <div className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
                   <i className="fab fa-twitter text-gray-300"></i>
