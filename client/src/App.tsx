@@ -7,6 +7,7 @@ import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
 import About from "@/pages/About";
 import Learn from "@/pages/Learn";
+import ResourceDetail from "@/pages/ResourceDetail";
 import Features from "@/pages/Features";
 import AiAnalysis from "@/pages/AiAnalysis";
 import Login from "@/pages/Login";
@@ -22,6 +23,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/learn" component={Learn} />
+      <Route path="/learn/:id" component={ResourceDetail} />
       <Route path="/features" component={Features} />
       <Route path="/ai">
         {() => (

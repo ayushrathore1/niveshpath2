@@ -1,92 +1,49 @@
 import { Button } from "@/components/ui/button";
-import LearnResourceCard, { LearnResource } from "@/components/LearnResourceCard";
+import LearnResourceCard from "@/components/LearnResourceCard";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { useLearnResources } from "@/data/learnResources";
 
 const Learn = () => {
-  const basicResources: LearnResource[] = [
-    {
-      id: "investment-fundamentals",
-      category: "Basics",
-      title: "Investment Fundamentals",
-      description: "Learn the basic principles of investing and how to build a solid foundation.",
-      imageUrl: "https://images.unsplash.com/photo-1642543348745-718721dc37ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: "personal-finance-101",
-      category: "Basics",
-      title: "Personal Finance 101",
-      description: "Essential knowledge for managing your money and building wealth over time.",
-      imageUrl: "https://images.unsplash.com/photo-1586486855514-8c637a7b766b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: "budgeting-essentials",
-      category: "Basics",
-      title: "Budgeting Essentials",
-      description: "Techniques for creating and maintaining a budget that works for your lifestyle.",
-      imageUrl: "https://images.unsplash.com/photo-1579621970588-a35d0e7ab9b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    }
-  ];
+  const { language, t } = useLanguage();
+  const { resources } = useLearnResources();
 
-  const stockResources: LearnResource[] = [
-    {
-      id: "stock-market-strategies",
-      category: "Stocks",
-      title: "Stock Market Strategies",
-      description: "Discover effective strategies for investing in the stock market.",
-      imageUrl: "https://images.unsplash.com/photo-1590283603385-c2c77adc8146?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: "stock-analysis",
-      category: "Stocks",
-      title: "Fundamental Analysis",
-      description: "How to analyze company financials and make informed investment decisions.",
-      imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: "technical-analysis",
-      category: "Stocks",
-      title: "Technical Analysis",
-      description: "Using charts and patterns to time your stock market investments better.",
-      imageUrl: "https://images.unsplash.com/photo-1535320903710-d993d3d77d29?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    }
-  ];
-
-  const planningResources: LearnResource[] = [
-    {
-      id: "retirement-planning",
-      category: "Planning",
-      title: "Retirement Planning",
-      description: "How to prepare for a comfortable retirement through smart investing.",
-      imageUrl: "https://images.unsplash.com/photo-1620714223084-8fcacc6dfd8d?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: "tax-planning",
-      category: "Planning",
-      title: "Tax Planning",
-      description: "Strategies to optimize your investments for tax efficiency and savings.",
-      imageUrl: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    },
-    {
-      id: "estate-planning",
-      category: "Planning",
-      title: "Estate Planning",
-      description: "Ensuring your wealth and assets are protected and transferred according to your wishes.",
-      imageUrl: "https://images.unsplash.com/photo-1563804447127-21e22250e4b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80"
-    }
-  ];
+  // Filter resources by category
+  const basicResources = resources.filter(resource => 
+    resource.categoryEn === "Basics" || resource.categoryHi === "बुनियादी बातें"
+  );
+  
+  const stockMarketResources = resources.filter(resource => 
+    resource.categoryEn === "Stock Market" || resource.categoryHi === "शेयर बाजार"
+  );
+  
+  const mutualFundResources = resources.filter(resource => 
+    resource.categoryEn === "Mutual Funds" || resource.categoryHi === "म्यूचुअल फंड"
+  );
+  
+  const taxPlanningResources = resources.filter(resource => 
+    resource.categoryEn === "Tax Planning" || resource.categoryHi === "कर नियोजन"
+  );
 
   return (
     <div>
       <section className="bg-gradient-to-b from-gray-50 to-white py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Financial Education</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              {t("Financial Education", "वित्तीय शिक्षा")}
+            </h1>
             <p className="text-lg mb-4">
-              Expand your financial knowledge with our curated resources
+              {t(
+                "Expand your financial knowledge with our curated resources",
+                "हमारे क्यूरेटेड संसाधनों के साथ अपने वित्तीय ज्ञान का विस्तार करें"
+              )}
             </p>
             <p className="text-gray-600">
-              Whether you're just starting out or looking to deepen your investment knowledge, 
-              we have resources to help you on your financial journey.
+              {t(
+                "Whether you're just starting out or looking to deepen your investment knowledge, we have resources to help you on your financial journey.",
+                "चाहे आप अभी शुरुआत कर रहे हों या अपने निवेश ज्ञान को गहरा करना चाहते हों, हमारे पास आपकी वित्तीय यात्रा में आपकी मदद करने के लिए संसाधन हैं।"
+              )}
             </p>
           </div>
         </div>
@@ -97,16 +54,17 @@ const Learn = () => {
           <Tabs defaultValue="all" className="max-w-5xl mx-auto">
             <div className="flex justify-center mb-8">
               <TabsList>
-                <TabsTrigger value="all">All Resources</TabsTrigger>
-                <TabsTrigger value="basics">Investment Basics</TabsTrigger>
-                <TabsTrigger value="stocks">Stock Market</TabsTrigger>
-                <TabsTrigger value="planning">Financial Planning</TabsTrigger>
+                <TabsTrigger value="all">{t("All Resources", "सभी संसाधन")}</TabsTrigger>
+                <TabsTrigger value="basics">{t("Investment Basics", "निवेश की बुनियादी बातें")}</TabsTrigger>
+                <TabsTrigger value="stocks">{t("Stock Market", "शेयर बाजार")}</TabsTrigger>
+                <TabsTrigger value="mutual-funds">{t("Mutual Funds", "म्यूचुअल फंड")}</TabsTrigger>
+                <TabsTrigger value="tax-planning">{t("Tax Planning", "कर नियोजन")}</TabsTrigger>
               </TabsList>
             </div>
             
             <TabsContent value="all">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[...basicResources, ...stockResources, ...planningResources].slice(0, 6).map((resource) => (
+                {resources.map((resource) => (
                   <LearnResourceCard key={resource.id} resource={resource} />
                 ))}
               </div>
@@ -122,15 +80,23 @@ const Learn = () => {
             
             <TabsContent value="stocks">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {stockResources.map((resource) => (
+                {stockMarketResources.map((resource) => (
                   <LearnResourceCard key={resource.id} resource={resource} />
                 ))}
               </div>
             </TabsContent>
             
-            <TabsContent value="planning">
+            <TabsContent value="mutual-funds">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {planningResources.map((resource) => (
+                {mutualFundResources.map((resource) => (
+                  <LearnResourceCard key={resource.id} resource={resource} />
+                ))}
+              </div>
+            </TabsContent>
+            
+            <TabsContent value="tax-planning">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {taxPlanningResources.map((resource) => (
                   <LearnResourceCard key={resource.id} resource={resource} />
                 ))}
               </div>
@@ -139,7 +105,7 @@ const Learn = () => {
           
           <div className="text-center mt-12">
             <Button className="bg-primary hover:bg-primary/90">
-              Browse All Resources
+              {t("Browse All Resources", "सभी संसाधन ब्राउज़ करें")}
             </Button>
           </div>
         </div>
@@ -148,85 +114,105 @@ const Learn = () => {
       {/* Learning Paths Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold mb-8 text-center">Learning Paths</h2>
+          <h2 className="text-2xl font-bold mb-8 text-center">
+            {t("Learning Paths", "लर्निंग पाथ")}
+          </h2>
           <p className="text-center mb-12 max-w-3xl mx-auto">
-            Follow our structured learning paths to systematically build your financial knowledge
+            {t(
+              "Follow our structured learning paths to systematically build your financial knowledge",
+              "अपने वित्तीय ज्ञान को व्यवस्थित रूप से बनाने के लिए हमारे संरचित लर्निंग पाथ का अनुसरण करें"
+            )}
           </p>
           
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="text-primary mb-4">
-                <i className="fas fa-user-graduate text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Beginner Path</h3>
+              <div className="text-primary mb-4 text-3xl">⭐</div>
+              <h3 className="text-xl font-semibold mb-2">
+                {t("Beginner Path", "प्रारंभिक मार्ग")}
+              </h3>
               <p className="text-gray-600 mb-4">
-                Start your investment journey with fundamental concepts and basic strategies.
+                {t(
+                  "Start your investment journey with fundamental concepts and basic strategies.",
+                  "मौलिक अवधारणाओं और बुनियादी रणनीतियों के साथ अपनी निवेश यात्रा शुरू करें।"
+                )}
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Personal Finance Fundamentals</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Personal Finance Fundamentals", "व्यक्तिगत वित्त की मूल बातें")}</span>
                 </li>
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Understanding Risk & Return</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Understanding Risk & Return", "जोखिम और रिटर्न को समझना")}</span>
                 </li>
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Getting Started with Mutual Funds</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Getting Started with Mutual Funds", "म्यूचुअल फंड के साथ शुरुआत करना")}</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">Start Learning</Button>
+              <Button variant="outline" className="w-full">
+                {t("Start Learning", "सीखना शुरू करें")}
+              </Button>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="text-primary mb-4">
-                <i className="fas fa-chart-line text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Intermediate Path</h3>
+              <div className="text-primary mb-4 text-3xl">📈</div>
+              <h3 className="text-xl font-semibold mb-2">
+                {t("Intermediate Path", "मध्यवर्ती मार्ग")}
+              </h3>
               <p className="text-gray-600 mb-4">
-                Deepen your knowledge with advanced concepts and diversification strategies.
+                {t(
+                  "Deepen your knowledge with advanced concepts and diversification strategies.",
+                  "उन्नत अवधारणाओं और विविधीकरण रणनीतियों के साथ अपने ज्ञान को गहरा करें।"
+                )}
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Portfolio Construction</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Portfolio Construction", "पोर्टफोलियो निर्माण")}</span>
                 </li>
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Stock Valuation Methods</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Stock Valuation Methods", "स्टॉक मूल्यांकन विधियां")}</span>
                 </li>
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Tax-Efficient Investing</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Tax-Efficient Investing", "कर-कुशल निवेश")}</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">Start Learning</Button>
+              <Button variant="outline" className="w-full">
+                {t("Start Learning", "सीखना शुरू करें")}
+              </Button>
             </div>
             
             <div className="bg-white p-6 rounded-lg shadow-md">
-              <div className="text-primary mb-4">
-                <i className="fas fa-trophy text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-semibold mb-2">Advanced Path</h3>
+              <div className="text-primary mb-4 text-3xl">🏆</div>
+              <h3 className="text-xl font-semibold mb-2">
+                {t("Advanced Path", "उन्नत मार्ग")}
+              </h3>
               <p className="text-gray-600 mb-4">
-                Master complex strategies and optimize your portfolio for long-term growth.
+                {t(
+                  "Master complex strategies and optimize your portfolio for long-term growth.",
+                  "जटिल रणनीतियों में महारत हासिल करें और दीर्घकालिक विकास के लिए अपने पोर्टफोलियो को अनुकूलित करें।"
+                )}
               </p>
               <ul className="space-y-2 mb-6">
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Advanced Asset Allocation</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Advanced Asset Allocation", "उन्नत संपत्ति आवंटन")}</span>
                 </li>
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Alternative Investment Strategies</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Alternative Investment Strategies", "वैकल्पिक निवेश रणनीतियां")}</span>
                 </li>
                 <li className="flex items-center text-sm">
-                  <i className="fas fa-check-circle text-green-500 mr-2"></i>
-                  <span>Wealth Preservation Techniques</span>
+                  <span className="text-green-500 mr-2">✓</span>
+                  <span>{t("Wealth Preservation Techniques", "धन संरक्षण तकनीकें")}</span>
                 </li>
               </ul>
-              <Button variant="outline" className="w-full">Start Learning</Button>
+              <Button variant="outline" className="w-full">
+                {t("Start Learning", "सीखना शुरू करें")}
+              </Button>
             </div>
           </div>
         </div>
