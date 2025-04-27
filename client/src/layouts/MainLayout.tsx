@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import MobileNav from "./MobileNav";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -8,6 +9,17 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { currentUser, logout } = useAuth();
+  const [, setLocation] = useLocation();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      setLocation("/");
+    } catch (error) {
+      console.error("Failed to log out", error);
+    }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -16,37 +28,53 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <div className="container mx-auto px-4 py-3 flex justify-between items-center">
           <div className="flex items-center">
             <Link href="/">
-              <a className="gradient-text font-bold text-2xl">NiveshPath</a>
+              <span className="gradient-text font-bold text-2xl cursor-pointer">NiveshPath</span>
             </Link>
           </div>
 
           <nav className="hidden md:flex space-x-8">
             <Link href="/">
-              <a className="text-gray-700 hover:gradient-text font-medium">Home</a>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Home</span>
             </Link>
             <Link href="/about">
-              <a className="text-gray-700 hover:gradient-text font-medium">About</a>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">About</span>
             </Link>
             <Link href="/learn">
-              <a className="text-gray-700 hover:gradient-text font-medium">Learn</a>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Learn</span>
             </Link>
             <Link href="/features">
-              <a className="text-gray-700 hover:gradient-text font-medium">Features</a>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Features</span>
             </Link>
             <Link href="/ai">
-              <a className="text-gray-700 hover:gradient-text font-medium">AI Analysis</a>
+              <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">AI Analysis</span>
             </Link>
           </nav>
 
           <div className="flex items-center space-x-5">
-            <Link href="/login">
-              <a className="text-gray-700 hover:gradient-text font-medium">Login</a>
-            </Link>
-            <Link href="/signup">
-              <a className="gradient-primary px-5 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center font-medium">
-                <i className="fas fa-user-plus mr-2"></i> Sign Up
-              </a>
-            </Link>
+            {currentUser ? (
+              <div className="flex items-center space-x-4">
+                <span className="text-gray-700 font-medium">
+                  Hi, {currentUser.email?.split('@')[0]}
+                </span>
+                <button 
+                  onClick={handleLogout}
+                  className="text-gray-700 hover:gradient-text font-medium cursor-pointer"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <>
+                <Link href="/login">
+                  <span className="text-gray-700 hover:gradient-text font-medium cursor-pointer">Login</span>
+                </Link>
+                <Link href="/signup">
+                  <div className="gradient-primary px-5 py-2.5 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center font-medium cursor-pointer">
+                    <i className="fas fa-user-plus mr-2"></i> Sign Up
+                  </div>
+                </Link>
+              </>
+            )}
           </div>
 
           <button
@@ -80,22 +108,22 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               <ul className="space-y-3">
                 <li>
                   <Link href="/">
-                    <a className="text-gray-300 hover:text-white transition">Home</a>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">Home</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/about">
-                    <a className="text-gray-300 hover:text-white transition">About</a>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">About</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/learn">
-                    <a className="text-gray-300 hover:text-white transition">Learn</a>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">Learn</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/features">
-                    <a className="text-gray-300 hover:text-white transition">Features</a>
+                    <span className="text-gray-300 hover:text-white transition cursor-pointer">Features</span>
                   </Link>
                 </li>
               </ul>
@@ -118,18 +146,18 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <div>
               <h4 className="font-semibold mb-4 text-white">Follow Us</h4>
               <div className="flex space-x-4">
-                <a href="#" className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                <div className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
                   <i className="fab fa-twitter text-gray-300"></i>
-                </a>
-                <a href="#" className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                </div>
+                <div className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
                   <i className="fab fa-facebook-f text-gray-300"></i>
-                </a>
-                <a href="#" className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                </div>
+                <div className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
                   <i className="fab fa-linkedin-in text-gray-300"></i>
-                </a>
-                <a href="#" className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors">
+                </div>
+                <div className="bg-gray-800 hover:bg-gray-700 w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer">
                   <i className="fab fa-instagram text-gray-300"></i>
-                </a>
+                </div>
               </div>
             </div>
           </div>

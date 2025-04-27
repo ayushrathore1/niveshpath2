@@ -12,6 +12,8 @@ import AiAnalysis from "@/pages/AiAnalysis";
 import Login from "@/pages/Login";
 import Signup from "@/pages/Signup";
 import MainLayout from "@/layouts/MainLayout";
+import { AuthProvider } from "@/contexts/AuthContext";
+import PrivateRoute from "@/components/PrivateRoute";
 
 function Router() {
   return (
@@ -20,7 +22,13 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/learn" component={Learn} />
       <Route path="/features" component={Features} />
-      <Route path="/ai" component={AiAnalysis} />
+      <Route path="/ai">
+        {() => (
+          <PrivateRoute>
+            <AiAnalysis />
+          </PrivateRoute>
+        )}
+      </Route>
       <Route path="/login" component={Login} />
       <Route path="/signup" component={Signup} />
       <Route component={NotFound} />
@@ -32,10 +40,12 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <MainLayout>
-          <Router />
-        </MainLayout>
-        <Toaster />
+        <AuthProvider>
+          <MainLayout>
+            <Router />
+          </MainLayout>
+          <Toaster />
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
